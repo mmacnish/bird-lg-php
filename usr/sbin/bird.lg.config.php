@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 
     BIRD Looking Glass :: http://bird-lg.subnets.ru/
@@ -20,15 +20,15 @@ $config=array();
     timezone: http://php.net/manual/en/function.date-default-timezone-get.php , default Europe/Moscow
     php_path: full path to the PHP CLI version, details http://php.net/manual/en/features.commandline.introduction.php
 */
-$config['timezone']="Europe/Moscow";
-$config['php_path']="/usr/local/bin/php";
+$config['timezone']="America/New_York";
+$config['php_path']="/usr/bin/php";
 $config['asn_url']="https://apps.db.ripe.net/search/lookup.html?source=ripe&key=AS%ASNUMBER%&type=aut-num";
 
 /*
-    BIRD sockets
+   BIRD sockets
     ==================================
     Full path to bird and bird6 sockets.
-    Àttention: 
+    ?ttention:
 	* you must set write permissions on BIRD sockets so user/group who runs HTTP server can write to the BIRD socket
 	    exmpl: chmod o=w /path/to/bird.ctl
 	* if you set socket permissions they will be rewrited after BIRD daemon restarted - keep this in mind
@@ -38,7 +38,7 @@ $config['asn_url']="https://apps.db.ripe.net/search/lookup.html?source=ripe&key=
 	- for IPv6 BIRD daemon (birdc6): /var/run/bird6.ctl
 */
 $config['birdc']="/var/run/bird.ctl";
-$config['birdc6']="/var/run/bird6.ctl";
+// $config['birdc6']="/var/run/bird6.ctl";
 
 
 //========================================================================================
@@ -53,13 +53,13 @@ $config['birdc6']="/var/run/bird6.ctl";
     bird_client_remote: if bird.client.php run on localhost set to false, if set to true bird.client.php will run as on remote host, default is false
     bird_client_remote_permited_ips: if bird_client_remote is set to true than need to specify permitted IP`s for connection
     suppress_welcome: don`t print BIRD welcome string, where BIRD version is present
-    ping_util: 
+    ping_util:
 	* path - full path to ipv4 ping utility
 	* flags - add flags when execute ping utility
     ping6_util:
 	* path - full path to IPv6 ping utility
 	* flags - add flags when execute ping utility
-    trace_util: 
+    trace_util:
 	* path - full path to ipv4 traceroute utility
 	* flags - add flags when execute traceroute utility
     trace6_util:
@@ -67,21 +67,21 @@ $config['birdc6']="/var/run/bird6.ctl";
 	* flags - add flags when execute traceroute utility
 */
 $config['bird_client_file']="bird.client.php";
-$config['bird_client_dir']="/full/path/to/bird.client/dir";
-$config['bird_client_remote']=false;					//boolean: False | True
+$config['bird_client_dir']="/usr/sbin/";
+$config['bird_client_remote']=true;					//boolean: False | True
 $config['bird_client_remote_permited_ips']=array();
-$config['bird_client_remote_permited_ips'][]="127.0.0.1";
+$config['bird_client_remote_permited_ips'][]="1.2.3.4";
 //$config['bird_client_remote_permited_ips'][]="X.X.X.X";
 
 $config['suppress_welcome']=true;					//boolean: False | True
 
-$config['ping_util']['path']="/sbin/ping";
+$config['ping_util']['path']="/usr/bin/ping";
 $config['ping_util']['flags']="-c 5";
-$config['ping6_util']['path']="/sbin/ping6";
+$config['ping6_util']['path']="/usr/bin/ping6";
 $config['ping6_util']['flags']="-c 5";
-$config['trace_util']['path']="/usr/sbin/traceroute";
+$config['trace_util']['path']="/usr/bin/traceroute";
 $config['trace_util']['flags']="-m 20 -q 1 -w 1 -I";
-$config['trace6_util']['path']="/usr/sbin/traceroute6";
+$config['trace6_util']['path']="/usr/bin/traceroute6";
 $config['trace6_util']['flags']="-m 20 -q 1 -I";
 
 
@@ -109,16 +109,17 @@ define('REMOTE_ADDR',$_SERVER['REMOTE_ADDR']);			//Remote client IP-address, use
 */
 
 $config['logo']="img/logo.png";
-$config['logo_url']="http://www.subnets.ru";
-$config['company_name']="SUBNETS.RU";
-$config['asn']="51410";
-$config['contact_email']="your_email@domain.zone";
+$config['logo_url']="http://LG.PilotFiber.Com";
+$config['company_name']="PilotFiber.com";
+$config['asn']="46450";
+$config['asn_link']="https://www.peeringdb.com/net/8406";
+$config['contact_email']="Abuse@PilotFiber.Com";
 $config['disclaimer']="All commands will be logged for possible later analysis and statistics. If you don't accept this policy, please close window now!";
 
 $config['check_new_version']=true;				//boolean: False | True
-$config['log_query']=false;					//boolean: False | True
-$config['log_query_result']=false;				//boolean: False | True
-$config['log_query_file']="";
+$config['log_query']=true;
+$config['log_query_result']=true;                               //boolean: False | True
+$config['log_query_file']="/var/log/lg.log";
 $config['clear_additional']=true;				//boolean: False | True
 
 /*
@@ -220,10 +221,10 @@ $config['query']['ospf_summ']['placeholder']="leave empty or Router ID";
 */
 $config['restricted']=array();
 
-//$config['restricted'][]="1.1.1.1";
+$config['restricted'][]="1.2.3.4";
 //$config['restricted'][]="2.2.2.2";
 
-/* 
+/*
     Nodes configuration
     ====================
     If "host" is set to "socket" then connect to BIRD socket on localhost (this server).
@@ -233,9 +234,9 @@ $config['restricted']=array();
     First node in the list:
 	$hin++;
 	$config['nodes'][$hin]['host'] = 'socket';
-	$config['nodes'][$hin]['port'] = '';
-	$config['nodes'][$hin]['name'] = 'Localhost';
-	$config['nodes'][$hin]['description'] = 'This server';
+	$config['nodes'][$hin]['port'] = '55555';
+	$config['nodes'][$hin]['name'] = 'JFK01';
+	$config['nodes'][$hin]['description'] = 'NYC';
 
     Second node (remote node) in the list:
 	$hin++;
@@ -253,15 +254,15 @@ $hin=0;
 
 //First node
 $hin++;
-$config['nodes'][$hin]['host'] = 'socket';
-$config['nodes'][$hin]['port'] = '';
-$config['nodes'][$hin]['name'] = 'Localhost';
-$config['nodes'][$hin]['description'] = 'BIRD on localhost';
+$config['nodes'][$hin]['host'] = '1.2.3.4';
+$config['nodes'][$hin]['port'] = '55555';
+$config['nodes'][$hin]['name'] = 'JFK01';
+$config['nodes'][$hin]['description'] = 'NYC';
 
 /*
     Bird output
     ===================
-    modify: 
+    modify:
 	* routes - modify bird`s standart route output to our custom format output, default is false
 	* protocols  - modify bird`s standart protocols output our custom format output, default is false
 	* own_community - if community is in the own communities list (difined below) than also print community meaning, default is false

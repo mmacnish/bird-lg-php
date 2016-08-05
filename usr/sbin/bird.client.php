@@ -1,20 +1,10 @@
-<?
-/*
-
-    BIRD Looking Glass :: Version: 0.4.2
-    Home page: http://bird-lg.subnets.ru/
-    =====================================
-    Copyright (c) 2013-2014 SUBNETS.RU project (Moscow, Russia)
-    Authors: Nikolaev Dmitry <virus@subnets.ru>, Panfilov Alexey <lehis@subnets.ru>
-
-*/
-
+<?php
 define('DEBUG','1');	//0 - debug is OFF
 			//1 - debug is ON: print debug to log
 			//2 - debug is ON: print debug to log and console
 
-$pathinfo = realpath( dirname(__FILE__) );
-$config=$pathinfo."/bird.lg.config.php";
+$pathinfo = realpath( "/usr/sbin" ); //dirname(__FILE__) );
+$config = $pathinfo . "/bird.lg.config.php";
 if (is_file($config)){
     if (is_readable($config)){
 	if (!@include $config){
@@ -65,7 +55,7 @@ if ($run_as_remote==1){
     logg("bird.client run as remote");
     $stdin = fopen('php://stdin', 'r');
     $stdout = fopen('php://stdout', 'w');
-    $remote_ip=isset($_SERVER['TCPREMOTEIP']) ? $_SERVER['TCPREMOTEIP'] : getenv('TCPREMOTEIP');
+    $remote_ip="158.106.204.7";  // isset($_SERVER['TCPREMOTEIP']) ? $_SERVER['TCPREMOTEIP'] : getenv('TCPREMOTEIP');
     $permited_ips=isset($config['bird_client_remote_permited_ips']) ? $config['bird_client_remote_permited_ips'] : array();
 
     if ($remote_ip){
@@ -87,7 +77,6 @@ if ($run_as_remote==1){
 	    }
 
 	    if (count($var)>0){
-		$argv[]="-c";
 		$get_var=explode(" ",isset($var[0]) ? $var[0] : array() );
 		foreach ($get_var as $par){
 		    $argv[]=$par;

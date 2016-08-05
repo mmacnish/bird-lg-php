@@ -1,0 +1,18 @@
+# This is the configuration for the tcp/stream bird service.
+
+service birdclient
+{
+	disable		= no
+	server		= /usr/bin/php
+	server_args 	= /usr/sbin/bird.client.php
+	id		= birdclient
+	type		= UNLISTED
+	wait		= no
+	socket_type	= stream
+	protocol	= tcp
+	user		= root
+	port		= 55555
+	log_on_success	= HOST PID
+	log_on_failure	= HOST
+	cps		= 25 30
+}

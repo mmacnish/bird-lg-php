@@ -109,7 +109,7 @@ if (!$param['query']){
     </TR>
     </TABLE>",$config['logo_url'],$config['logo']);
     print "<CENTER>";
-    printf("<H2>%s Looking Glass (AS%s)</H2>",$config['company_name'],$config['asn']);
+    printf("<H2>%s Looking Glass ( <a href='%s'>'AS%s</a> )</H2>",$config['company_name'],$config['asn_link'],$config['asn']);
     print "</CENTER>";
     print "<HR SIZE=2 WIDTH=\"85%\" NOSHADE>";
     print "<span id=\"errors\" class=\"error_text\"></span>";
@@ -389,7 +389,7 @@ if (!$param['query']){
 		    }
 		}
 	    }
-	    
+
 	    show_buttons($buttons,1);
 	}else{
 	    //deb($query);
